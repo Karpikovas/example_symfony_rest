@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ADD{% endblock %}
+
+{% block body %}
+
+  <section>
+    <form action='/logout' method='post'>
+      <input type='submit' value='LOGOUT'/>
+    </form>
+    <form action="/create" method='post'>
+      <button type='submit'>ADD NEW</button>
+    </form>
+    <table border="1">
+      <thead>
+      <th><?php echo $hi?></th>
+      <?php endforeach; ?>
+      </thead>
+      <tbody>
+      <tr>
+        <td>
+            <form action='/delete' method='post'>
+              <input type='submit' value='DELETE'/>
+              <input type='hidden' name='id' >
+            </form>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+  </section>
+{% endblock %}

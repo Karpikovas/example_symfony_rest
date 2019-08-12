@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ADD{% endblock %}
+
+{% block body %}
+
+  <section>
+    <form method="post">
+      Username: <input type="text"  name="username" value={{ username }}/><br/><br/>
+      Password: <input type="password"  name="password" value={{ password }}/>/><br/><br/>
+      <input type="submit" value="LOGIN" name="submit" />
+    </form>
+    <a href="/register">Register</a>
+  </section>
+{% endblock %}
