@@ -13,18 +13,25 @@
     </form>
     <table border="1">
       <thead>
-      <th><?php echo $hi?></th>
-      <?php endforeach; ?>
+      {% for hi in header %}
+        <th>{{ hi }}</th>
+      {% endfor %}
       </thead>
       <tbody>
-      <tr>
-        <td>
-            <form action='/delete' method='post'>
-              <input type='submit' value='DELETE'/>
-              <input type='hidden' name='id' >
-            </form>
-        </td>
-      </tr>
+      {% for item in items %}
+        <tr>
+          {% for prop in item %}
+          <td>
+            {{ prop }}
+          </td>
+          {% endfor %}
+          <td>
+              <form action='/delete/{{ item['id'] }}/ask' method='post'>
+                <input type='submit' value='DELETE'/>
+              </form>
+          </td>
+        </tr>
+      {% endfor %}
       </tbody>
     </table>
   </section>

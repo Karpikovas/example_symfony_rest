@@ -1,0 +1,31 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}DELETE{% endblock %}
+
+{% block body %}
+
+    <section>
+        <table border="1">
+            <thead>
+            {% for hi in header %}
+                <th>{{ hi }}</th>
+            {% endfor %}
+            </thead>
+            <tbody>
+            {% for item in items %}
+                <tr>
+                    {% for prop in item %}
+                        <td>
+                            {{ prop }}
+                        </td>
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <form action='/delete/{{ itemID }}/process' method='post'>
+            <input type='submit' name='delete' value='DELETE'/>
+            <input type='submit' name='cancel' value='CANCEL'/>
+        </form>
+    </section>
+{% endblock %}
