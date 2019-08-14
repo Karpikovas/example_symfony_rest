@@ -63,6 +63,7 @@
     </include_path>
   </component>
   <component name="ProjectId" id="1OmIQw9o8mhGcnVjNewRR44hT75" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
@@ -94,12 +95,23 @@
       <workItem from="1564576333681" duration="9364000" />
       <workItem from="1564661897819" duration="6688000" />
       <workItem from="1564746724220" duration="204000" />
-      <workItem from="1565618725085" duration="4683000" />
+      <workItem from="1565618725085" duration="4984000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
