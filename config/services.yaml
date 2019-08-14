@@ -4,7 +4,11 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    db_pass: 123
+    DATABASE_PORT: 3306
+    DATABASE_HOST: 192.168.56.40
+    DATABASE_USER: root1
+    DATABASE_PASSWORD: 123
+    DATABASE_NAME: example_db
 
 services:
     # default configuration for services in *this* file

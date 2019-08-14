@@ -1,38 +1,29 @@
 <?php
-// src/Controller/LuckyController.php
+
 namespace App\Controller;
 
-use Symfony\Component\HttpFoundation\Request;
+use App\Lib\LibItem;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\Routing\Annotation\Route;
 
 class SiteController extends AbstractController
 {
-  public function first()
-  {
-    return new Response(
-        111111
-    );
-  }
-
   /**
-   * @Route("/", name="main_second")
+   * @Route("/", name="site")
    */
-  public function index()
+  public function index(LibItem $Item )
   {
-    $name = 'Somebody';
+    $header = ["ID", "Name", "SecondName", "Patr", "Birthday", "Delete"];
+    $items = $Item->getItemsList();
 
     return $this->render(
         'site/index.html.twig',
-        ['name' => $name]
+        [
+            'header' => $header,
+            'items' => $items
+        ]
     );
-
-//    return new Response(
-//        '<html><body>Lucky number: '.$_SERVER["SERVER_SOFTWARE"].'</body></html>'
-//    );
-
   }
 
   /**
