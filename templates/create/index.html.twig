@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}DELETE{% endblock %}
+{% block title %}CREATE{% endblock %}
 
 {% block body %}
 
@@ -10,10 +10,10 @@
     {% endfor %}
     <br/>
     <form method="post">
-      Name: <input type="text"  name="name" value={{ name }}/><br/>
-      Secondname: <input type="text"  name="secondname" value={{ secondName }}/><br/>
-      Patr: <input type="text"  name="patr" value={{ patr }}/><br/>
-      Birthday: <input type="date"  name="birthday" value={{ birthday }}/><br/>
+      Name: <input type="text"  name="name" value='{{ name }}'/><br/>
+      Secondname: <input type="text"  name="secondName" value='{{ secondName }}'/><br/>
+      Patr: <input type="text"  name="patr" value='{{ patr }}'/><br/>
+      Birthday: <input type="date"  name="birthday" value='{{ birthday }}'/><br/>
       <input type="submit" value="ADD" name="submit" />
     </form>
   </section>

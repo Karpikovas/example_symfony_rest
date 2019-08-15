@@ -26,17 +26,6 @@ class LibDB
     }
   }
 
-  protected function prepareParam($param)
-  {
-    if (is_int($param)) {
-      $type = PDO::PARAM_INT;
-    } elseif (is_bool($param)) {
-      $type = PDO::PARAM_BOOL;
-    } else {
-      $type = PDO::PARAM_STR;
-    }
-    return $type;
-  }
 
   public function select(string $sql, array $params = []): array
   {
@@ -54,5 +43,6 @@ class LibDB
     $stmt = $this->connection->prepare($sql);
     $stmt->execute($params);
     $stmt->closeCursor();
+
   }
 }

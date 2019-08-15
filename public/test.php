@@ -1,15 +1,23 @@
 <?php
 
+/*
+  Generate cookie
+*/
+//$bytes = random_bytes(25);
+//var_dump(bin2hex($bytes));
+//
 
+/*
+  Generate hash
+*/
 
-try {
-  $dsn = "mysql:host=192.168.56.40;port=3306;dbname=site1";
-  $db = new PDO($dsn,'site_user', 'qwe$123456');
-} catch (PDOException $e) {
-  echo 'Подключение не удалось: ' . $e->getMessage();
-}
+//$password = 'root';
+//$hash = password_hash($password, PASSWORD_BCRYPT );
+//
+//$flag = password_verify($password, $hash);
+//
+//var_dump($hash);
 
-$stmt = $db->prepare('select * from table1');
-$stmt->execute();
-$items = $stmt->fetchAll();
-print_r($items);
+$exp_date = date("Y-m-d H:i:s", strtotime("+1 hours"));
+
+var_dump($exp_date);

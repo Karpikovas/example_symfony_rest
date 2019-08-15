@@ -4,50 +4,66 @@
 namespace App\Controller;
 
 use App\Lib\LibDB;
+use App\Lib\LibUser;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class AuthController extends AbstractController
 {
 
-  /**
-   * @Route("/login", name="login")
-   */
-  public function index(LibDB $libDB)
+
+  public function login(Request $request, LibUser $User)
   {
-    $username = '';
-    $password = '';
 
-//    $this->get('svc_db');
+//    if ($User->checkAuth())
+//    {
+//      return $this->redirectToRoute('home_page');
+//    }
+    $errors = null;
+    $username = $request->request->get('username', null);
+    $password = $request->request->get('password', null);
+    $submit = $request->request->get('submit', false);
 
-    // $this->container->get('');
+    if ($submit)
+    {
+      $user = $User->checkUsernameExists($username);
 
-    // $this->getParameter('param1');
+      if ($user){
+        if ($User->checkPassword($user, $password)){
+          $bytes = random_bytes(25);
+          $key = bin2hex($bytes);
+
+          $request->cookies->set('key', $key);
+          
+        }
+      }
 
 
-    $libDB->multiply(2);
+        //$request->cookies->set(....);
+
+        return $this->redirectToRoute('home_page');
+      } else {
+        $errors = 'Incorrect username or password!';
+      }
+    }
 
     return $this->render(
         'auth/login.html.twig',
         [
-            'username' => $username,
+            'errors' => $errors,
+           'username' => $username,
             'password' => $password
         ]
     );
   }
 
-  /**
-   * @Route("/hello/{name}")
-   */
-  public function hello($name)
-  {
-    return $this->render(
-        'blog/hello.html.twig',
-        [
-            'name' => $name
-        ]
-    );
+  public function logout(LibUser $User) {
+    if (!$User->checkAuth())
+    {
+      return $this->redirectToRoute('login');
+    }
+
+    $User->logout();
+    return $this->redirectToRoute('login');
   }
 }

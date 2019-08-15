@@ -5,23 +5,29 @@ namespace App\Controller;
 
 
 use App\Lib\LibItem;
-use http\Env\Request;
-use http\Env\Response;
+use App\Lib\LibUser;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 
 class CreateController extends AbstractController
 {
-  public function create(LibItem $Item)
+  public function create(Request $request, LibItem $Item, LibUser $User)
   {
+    if (!$User->checkAuth())
+    {
+      return $this->redirectToRoute('login');
+    }
 
-    if (isset($_POST['submit'])) {
+    $errors = null;
+    $name = $request->request->get('name', null);
+    $secondName = $request->request->get('secondName', null);
+    $patr = $request->request->get('patr', null);
+    $birthday = $request->request->get('birthday', null);
+    $submit = $request->request->get('submit', false);
 
-      $name = $_POST['name'];
-      $secondName = $_POST['secondname'];
-      $patr = $_POST['patr'];
-      $birthday = $_POST['birthday'];
 
-      $errors = false;
+    if ($submit)
+    {
       if (!$Item->checkName($name)) {
 
         $errors[] = 'Error with name';

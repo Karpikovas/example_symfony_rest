@@ -13,3 +13,11 @@ delete_process:
 create:
   path: /create
   controller: App\Controller\CreateController::create
+
+login:
+  path: /login
+  controller: App\Controller\AuthController::login
+
+logout:
+  path: /logout
+  controller: App\Controller\AuthController::logout

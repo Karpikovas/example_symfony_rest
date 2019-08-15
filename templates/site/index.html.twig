@@ -1,16 +1,18 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}ADD{% endblock %}
+{% block title %}LIST{% endblock %}
 
 {% block body %}
 
   <section>
-    <form action='/logout' method='post'>
+    <form action='{{ path('logout') }}' method='post'>
       <input type='submit' value='LOGOUT'/>
     </form>
-    <form action="/create" method='post'>
+    <br/>
+    <form action="{{ path('create') }}" method='post'>
       <button type='submit'>ADD NEW</button>
     </form>
+    <br/>
     <table border="1">
       <thead>
       {% for hi in header %}
@@ -26,7 +28,7 @@
           </td>
           {% endfor %}
           <td>
-              <form action='/delete/{{ item['id'] }}/ask' method='post'>
+              <form action='{{ path('delete_ask', {'itemID': item['id']}) }}' method='post'>
                 <input type='submit' value='DELETE'/>
               </form>
           </td>

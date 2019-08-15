@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Lib\LibItem;
+use App\Lib\LibUser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -10,8 +11,13 @@ use Symfony\Component\Routing\Annotation\Route;
 class SiteController extends AbstractController
 {
 
-  public function index(LibItem $Item)
+  public function index(LibItem $Item, LibUser $User)
   {
+    if (!$User->checkAuth())
+    {
+      return $this->redirectToRoute('login');
+    }
+
     $header = ["ID", "Name", "SecondName", "Patr", "Birthday", "Delete"];
     $items = $Item->getItemsList();
 
@@ -21,16 +27,6 @@ class SiteController extends AbstractController
             'header' => $header,
             'items' => $items
         ]
-    );
-  }
-
-  /**
-   * @Route("/second/{slug<\d+>}", name="second_show")
-   */
-  public function second_show($slug)
-  {
-    return new Response(
-        22222222222222
     );
   }
 }
