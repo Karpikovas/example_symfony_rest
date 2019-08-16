@@ -13,7 +13,9 @@ class CreateController extends AbstractController
 {
   public function create(Request $request, LibItem $Item, LibUser $User)
   {
-    if (!$User->checkAuth())
+    $key = $request->cookies->get('key', null);
+
+    if (!$User->checkAuth($key))
     {
       return $this->redirectToRoute('login');
     }

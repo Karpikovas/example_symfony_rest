@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Lib\LibItem;
 use App\Lib\LibUser;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
@@ -14,9 +15,11 @@ class DeleteController extends AbstractController
 {
 
 
-  public function ask($itemID, LibItem $Item, LibUser $User)
+  public function ask(Request $request, $itemID, LibItem $Item, LibUser $User)
   {
-    if (!$User->checkAuth())
+    $key = $request->cookies->get('key', null);
+
+    if (!$User->checkAuth($key))
     {
       return $this->redirectToRoute('login');
     }
@@ -35,9 +38,11 @@ class DeleteController extends AbstractController
 
   }
 
-  public function process($itemID, LibItem $Item, LibUser $User)
+  public function process(Request $request, $itemID, LibItem $Item, LibUser $User)
   {
-    if (!$User->checkAuth())
+    $key = $request->cookies->get('key', null);
+
+    if (!$User->checkAuth($key))
     {
       return $this->redirectToRoute('login');
     }

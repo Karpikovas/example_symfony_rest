@@ -21,3 +21,4 @@ login:
 logout:
   path: /logout
   controller: App\Controller\AuthController::logout
+

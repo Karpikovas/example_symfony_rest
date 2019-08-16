@@ -4,16 +4,17 @@ namespace App\Controller;
 
 use App\Lib\LibItem;
 use App\Lib\LibUser;
-use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\Request;
 
 class SiteController extends AbstractController
 {
 
-  public function index(LibItem $Item, LibUser $User)
+  public function index(Request $request, LibItem $Item, LibUser $User)
   {
-    if (!$User->checkAuth())
+    $key = $request->cookies->get('key', null);
+
+    if (!$User->checkAuth($key))
     {
       return $this->redirectToRoute('login');
     }

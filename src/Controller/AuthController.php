@@ -5,8 +5,10 @@ namespace App\Controller;
 
 use App\Lib\LibDB;
 use App\Lib\LibUser;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Cookie;
 
 class AuthController extends AbstractController
 {
@@ -15,10 +17,6 @@ class AuthController extends AbstractController
   public function login(Request $request, LibUser $User)
   {
 
-//    if ($User->checkAuth())
-//    {
-//      return $this->redirectToRoute('home_page');
-//    }
     $errors = null;
     $username = $request->request->get('username', null);
     $password = $request->request->get('password', null);
@@ -33,19 +31,24 @@ class AuthController extends AbstractController
           $bytes = random_bytes(25);
           $key = bin2hex($bytes);
 
-          $request->cookies->set('key', $key);
-          
+
+          $response = new Response();
+          $response->headers->setCookie(Cookie::create('key', $key, time() + 3600));
+          $response->send();
+
+
+          $User->setAuth($key, $user['id']);
+          return $this->redirectToRoute('home_page');
+        }
+        else {
+          $errors = 'Incorrect password!';
         }
       }
-
-
-        //$request->cookies->set(....);
-
-        return $this->redirectToRoute('home_page');
-      } else {
-        $errors = 'Incorrect username or password!';
+      else {
+        $errors = 'Incorrect username!';
       }
     }
+
 
     return $this->render(
         'auth/login.html.twig',
@@ -57,13 +60,18 @@ class AuthController extends AbstractController
     );
   }
 
-  public function logout(LibUser $User) {
-    if (!$User->checkAuth())
+  public function logout(Request $request, LibUser $User) {
+
+    $key = $request->cookies->get('key', null);
+
+    if ($User->checkAuth($key))
     {
-      return $this->redirectToRoute('login');
+      $response = new Response();
+      $response->headers->clearCookie('key');
+      $response->send();
+      $User->logout($key);
     }
 
-    $User->logout();
     return $this->redirectToRoute('login');
   }
 }

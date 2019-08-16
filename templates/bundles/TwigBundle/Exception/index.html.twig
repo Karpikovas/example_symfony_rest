@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ERROR{% endblock %}
+
+{% block body %}
+
+  <section>
+    <h2> Page not found! </h2>
+    <form action='{{ path('home_page') }}' method='post'>
+      <input type='submit' name='return' value='RETURN'/>
+    </form>
+  </section>
+{% endblock %}
