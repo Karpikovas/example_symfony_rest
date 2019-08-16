@@ -14,8 +14,7 @@ class SiteController extends AbstractController
   {
     $key = $request->cookies->get('key', null);
 
-    if (!$User->checkAuth($key))
-    {
+    if (!$User->checkAuth($key)) {
       return $this->redirectToRoute('login');
     }
 

@@ -15,8 +15,7 @@ class CreateController extends AbstractController
   {
     $key = $request->cookies->get('key', null);
 
-    if (!$User->checkAuth($key))
-    {
+    if (!$User->checkAuth($key)) {
       return $this->redirectToRoute('login');
     }
 
@@ -28,8 +27,7 @@ class CreateController extends AbstractController
     $submit = $request->request->get('submit', false);
 
 
-    if ($submit)
-    {
+    if ($submit) {
       if (!$Item->checkName($name)) {
 
         $errors[] = 'Error with name';

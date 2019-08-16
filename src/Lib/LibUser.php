@@ -15,16 +15,16 @@ class LibUser
 
   public function checkPassword($user, $password)
   {
-      $hash = $user['password'];
+    $hash = $user['password'];
 
-      if (password_verify($password, $hash))
-      {
-        return true;
-      }
+    if (password_verify($password, $hash)) {
+      return true;
+    }
     return false;
   }
 
-  public function logout($key) {
+  public function logout($key)
+  {
     $params = [
         $key
     ];
@@ -33,15 +33,15 @@ class LibUser
 
   public function checkAuth($key): int // userId
   {
-    if ($key)
-    {
+    if ($key) {
       $params = [
           $key
       ];
       $key = $this->Db->select('SELECT * from sessions WHERE `key` = ?; and exp_date > now()', $params);
 
       if ($key) {
-        return true;
+        $key = array_shift($key);
+        return $key['user_id'];
       }
 
       $this->Db->exec('DELETE from sessions WHERE `key` = ?', $params);

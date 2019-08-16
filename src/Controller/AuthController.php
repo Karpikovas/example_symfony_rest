@@ -3,7 +3,6 @@
 
 namespace App\Controller;
 
-use App\Lib\LibDB;
 use App\Lib\LibUser;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Request;
@@ -22,29 +21,26 @@ class AuthController extends AbstractController
     $password = $request->request->get('password', null);
     $submit = $request->request->get('submit', false);
 
-    if ($submit)
-    {
+    if ($submit) {
       $user = $User->checkUsernameExists($username);
 
-      if ($user){
-        if ($User->checkPassword($user, $password)){
+      if ($user) {
+        if ($User->checkPassword($user, $password)) {
           $bytes = random_bytes(25);
           $key = bin2hex($bytes);
 
 
           $response = new Response();
-          $response->headers->setCookie(Cookie::create('key', $key, time() + 3600));
+          $response->headers->setCookie(Cookie::create('key', $key, time() + 3600 * 24 * 30));
           $response->send();
 
 
           $User->setAuth($key, $user['id']);
           return $this->redirectToRoute('home_page');
-        }
-        else {
+        } else {
           $errors = 'Incorrect password!';
         }
-      }
-      else {
+      } else {
         $errors = 'Incorrect username!';
       }
     }
@@ -54,18 +50,18 @@ class AuthController extends AbstractController
         'auth/login.html.twig',
         [
             'errors' => $errors,
-           'username' => $username,
+            'username' => $username,
             'password' => $password
         ]
     );
   }
 
-  public function logout(Request $request, LibUser $User) {
+  public function logout(Request $request, LibUser $User)
+  {
 
     $key = $request->cookies->get('key', null);
 
-    if ($User->checkAuth($key))
-    {
+    if ($User->checkAuth($key)) {
       $response = new Response();
       $response->headers->clearCookie('key');
       $response->send();
