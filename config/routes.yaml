@@ -22,3 +22,6 @@ logout:
   path: /logout
   controller: App\Controller\AuthController::logout
 
+get_items_list:
+  path: /items
+  controller: App\Controller\ItemController::index
