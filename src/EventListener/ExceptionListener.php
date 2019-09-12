@@ -16,19 +16,21 @@ class ExceptionListener extends AbstractController
   {
     $exception = $event->getException();
     $errorCode = Response::HTTP_INTERNAL_SERVER_ERROR; // 500
-    $errorMessage = $exception->getMessage();
-
-
+    $errorMessage = $exception->getMessage();;
 
     if ($exception instanceof HttpExceptionInterface) {
       $errorCode = $exception->getStatusCode();
+      $errorMessage = $exception->getMessage();
     }
-
+/*
     if ($event->getRequest()->isXmlHttpRequest()) {
-      $response = new Response($this->renderView('error/json', ['code' => $errorCode, 'message' => $errorMessage]));
+      $response = new Response($this->renderView('json/answer.json.twig', ['status' => 'error', 'message' => $errorMessage]));
     } else {
-      $response = new Response($this->renderView('error/error.html.twig', ['code' => $errorCode, 'message' => $errorMessage]));
+      $response = new Response($this->renderView('json/answer.json.twig', ['status' => 'error', 'message' => $errorMessage]));
     }
+*/
+
+    $response = new Response($this->renderView('json/answer.json.twig', ['status' => 'error', 'message' => $errorMessage]));
 
     $response->setStatusCode($errorCode);
 

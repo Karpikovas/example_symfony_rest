@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}{% endblock %}</title>
+    {% block styles %}{% endblock %}
 </head>
 <body>
 
@@ -11,13 +12,16 @@
 </div>
 
 
-<link rel="stylesheet" href="js/lib/jquery/jquery-ui.min.css">
-<script src="js/lib/jquery/external/jquery/jquery.js"></script>
-<script src="js/lib/jquery/jquery-ui.min.js"></script>
-<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+  <link rel="stylesheet" href="js/lib/jquery/jquery-ui.min.css">
+  <script src="js/lib/jquery/external/jquery/jquery.js"></script>
+  <script src="js/lib/jquery/jquery-ui.min.js"></script>
+  <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
-    {%  block scripts %}{%  endblock  %}
+   <script>
+       axios.defaults.headers.common['Content-Type'] = 'application/json';
+   </script>
 
+  {%  block scripts %}{%  endblock  %}
 
 </body>
 </html>

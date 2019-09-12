@@ -8,7 +8,7 @@ parameters:
     DATABASE_HOST: 192.168.56.40
     DATABASE_USER: site_user
     DATABASE_PASSWORD: qwe$123456
-    DATABASE_NAME: site1
+    DATABASE_NAME: agency
 
     auth_lifetime: 3600
 
@@ -42,3 +42,7 @@ services:
     App\EventListener\ExceptionListener:
         tags:
             - { name: kernel.event_listener, event: kernel.exception }
+
+    App\EventListener\CORSListener:
+        tags:
+            - { name: kernel.event_listener, event: kernel.response }

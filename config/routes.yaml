@@ -1,27 +1,66 @@
-home_page:
-  path: /
-  controller: App\Controller\SiteController::index
+cars:
+  path: /cars
+  controller: App\Controller\CarController::showCarsList
 
-delete_ask:
-  path: /delete/{itemID<\d+>}/ask
-  controller: App\Controller\DeleteController::ask
+used_cars:
+  path: /cars/used
+  controller: App\Controller\CarController::getMostUsedCars
 
-delete_process:
-  path: /delete/{itemID<\d+>}/process
-  controller: App\Controller\DeleteController::process
+add_new_car:
+  path: /cars/add
+  controller: App\Controller\CarController::addNewCar
 
-create:
-  path: /create
-  controller: App\Controller\CreateController::create
+delete_car:
+  path: /cars/delete/{carID}
+  controller: App\Controller\CarController::deleteCarByID
 
+update_car:
+  path: /cars/update/{carID}
+  controller: App\Controller\CarController::updateCarByID
+
+# ---
+
+add_new_owner:
+  path: /owners/add
+  controller: App\Controller\OwnerController::addNewOwner
+
+delete_owner:
+  path: /owners/delete/{ownerID}
+  controller: App\Controller\OwnerController::deleteOwnerByID
+
+update_owner:
+  path: /owners/update/{ownerID}
+  controller: App\Controller\OwnerController::updateOwnerByID
+
+get_payout_amount:
+  path: /owners/payout/{ownerID}
+  controller: App\Controller\OwnerController::getPayoutAmountByOwnerID
+
+# ---
+
+add_new_client:
+  path: /clients/add
+  controller: App\Controller\ClientController::addNewClient
+
+# ---
+
+add_new_rent:
+  path: /rents/add
+  controller: App\Controller\RentController::addNewRent
+
+edit_rent:
+  path: /rents/edit/{contractID}
+  controller: App\Controller\RentController::editRentByID
+
+coming_rents:
+  path: /rents
+  controller: App\Controller\RentController::showComingRentList
+
+profit_info:
+  path: /rents/profit
+  controller: App\Controller\RentController::getProfitInfo
+
+#---
 login:
   path: /login
   controller: App\Controller\AuthController::login
-
-logout:
-  path: /logout
-  controller: App\Controller\AuthController::logout
-
-get_items_list:
-  path: /items
-  controller: App\Controller\ItemController::index

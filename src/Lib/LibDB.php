@@ -21,6 +21,7 @@ class LibDB
     if (!$this->connection) {
       $dsn = "mysql:host={$this->params->get('DATABASE_HOST')};dbname={$this->params->get('DATABASE_NAME')}";
       $db = new PDO($dsn, $this->params->get('DATABASE_USER'), $this->params->get('DATABASE_PASSWORD'));
+      $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
       $db->exec("set names utf8");
       $this->connection = $db;
     }
@@ -41,8 +42,8 @@ class LibDB
   {
     $this->testInitConnection();
     $stmt = $this->connection->prepare($sql);
-    $stmt->execute($params);
+    $error = $stmt->execute($params);
     $stmt->closeCursor();
-
+    return $error;
   }
 }
